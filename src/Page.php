@@ -4,12 +4,12 @@ abstract class Page {
 	public $html; 
 	public $url; 
 
-	public function __construct($url, $html){
+	public function __construct($url){
 		$this->url = $url;
 		$this->html = file_get_html($url);
 	}
 
-	abstract function parse();
+	//abstract function parse();
 
 	public function parse_title(){
 		if(is_object($this->html)){
@@ -81,13 +81,9 @@ abstract class Page {
 		}
 		return $myTags;
 	}
-	public function get_tag($tag){
-		$tag_content_array = array();
+	public function getTag($tag){
 		$elements = $this->html->find($tag);
-		foreach ($elements as $element) {
-			array_push($tag_content_array, $element->innertext);
-		}
-		return $tag_content_array;
+		return $elements;
 	}
 	public function find_all_words(){
 			$words = $this->html->find("body",0)->plaintext;
